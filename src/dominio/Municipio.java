@@ -1,36 +1,38 @@
 package dominio;
-
 import java.util.ArrayList;
-import java.util.List;
-
-public class Municipio {
-
+import java.io.Serializable;
+public class Municipio implements Serializable{
     private String nombre;
-    private List<Localidad> localidades;
-
-    public Municipio(String nombre) {
-        this.nombre = nombre;
-        localidades = new ArrayList<>();
+    private ArrayList<Localidad> localidades;
+ 
+    public Municipio(String nombre_) {
+        nombre=nombre_;
+        localidades=new ArrayList<Localidad>();
     }
-
-    public void addLocalidad(Localidad l) {
-        localidades.add(l);
+    public Municipio add(Localidad localidad){
+        localidades.add(localidad);
+        return this;
     }
-
-    public String toString() {
-        String cadena = "Municipio: " + nombre + "\n";
-        for (Localidad l : localidades) {
-            cadena += (l + "\n");
+    public int getPoblacion(){
+        int poblacion=0;
+        for(Localidad localidad:localidades){
+            poblacion+=localidad.getPoblacion();
         }
-        return cadena;
+        return poblacion;
     }
-
-    public int contarHabitantes() {
-        int total = 0;
-        for (Localidad l : localidades) {
-            total += l.getNumeroDeHabitantes();
-        }
-        return total;
+    public int getLocalidades(){
+        return localidades.size();
     }
+    public Localidad getLocalidad(int i){
+        return localidades.get(i);
+    }
+    public String toString(){
+        return "Municipio: "+nombre+" Población: "+getPoblacion() +" habitantes\n"+localidades.toString()+"\n";
+    }
+ 
+    public String getNombre() {
+        return nombre;
+    }
+ 
 }
 
